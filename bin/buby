@@ -1,8 +1,9 @@
-#!/usr/bin/env jruby
+#!/usr/bin/env jruby -J-Xmx1024m
 
 require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib buby]))
 require 'irb'
 require 'optparse'
+require 'pry'
 
 args = {}
 
@@ -93,16 +94,17 @@ if f=args[:restore]
 end
 
 if args[:irb]
+  Pry.start
   # yucky hack...
-  IRB.setup(nil)
-  IRB.conf[:IRB_NAME] = File.basename($0, ".rb")
-  module IRB
-    class <<self
-      def setup(*args); end
-    end
-  end
-  puts "Global $burp is set to #{$burp.inspect}",
-       " Important Note: exit with $burp.close"
-  IRB.start()
+  #  IRB.setup(nil)
+  #  IRB.conf[:IRB_NAME] = File.basename($0, ".rb")
+  #  module IRB
+  #    class <<self
+  #      def setup(*args); end
+  #    end
+  #  end
+  #  puts "Global $burp is set to #{$burp.inspect}",
+  #       " Important Note: exit with $burp.close"
+  #  IRB.start()
 end
 
